@@ -95,13 +95,24 @@ export default function App() {
       </NavBar>
 
       <Main>
-        <Box>
+        <Box element={<MovieList movies={movies} />} />
+
+        <Box
+          element={
+            <>
+              <WatchedSummary watched={watched} />
+              <WatchedMovieList watched={watched} />
+            </>
+          }
+        />
+        {/* The above method is the alternative to using the children prop */}
+        {/* <Box>
           <MovieList movies={movies} />
         </Box>
         <Box>
           <WatchedSummary watched={watched} />
           <WatchedMovieList watched={watched} />
-        </Box>
+        </Box> */}
       </Main>
     </>
   );
@@ -110,7 +121,9 @@ export default function App() {
 function Main({ children }) {
   return <main className="main">{children}</main>;
 }
-function Box({ children }) {
+// function Box({ children }) {
+function Box({ element }) {
+  //this is used when we pass an element as a prop
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -121,7 +134,12 @@ function Box({ children }) {
       >
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && children}
+      {/* {isOpen1 && children} */}
+      {
+        isOpen1 && element
+        /**this is used when we pass an element as a
+      prop */
+      }
     </div>
   );
 }
